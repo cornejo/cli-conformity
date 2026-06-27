@@ -5,7 +5,6 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import click
 import typer
 from typer.core import TyperGroup
 
@@ -19,13 +18,13 @@ class _HelpOnErrorGroup(TyperGroup):
     """Click Group that shows the full help text on usage errors."""
 
     def resolve_command(
-        self, ctx: click.Context, args: list[str],
-    ) -> tuple[str | None, click.Command | None, list[str]]:
+        self, ctx: typer.Context, args: list[str],
+    ) -> tuple[str | None, Any, list[str]]:
         try:
             return super().resolve_command(ctx, args)
         except Exception as exc:
-            click.echo(ctx.get_help(), err=True)
-            click.echo(err=True)
+            typer.echo(ctx.get_help(), err=True)
+            typer.echo(err=True)
             if hasattr(exc, "ctx"):
                 exc.ctx = None
             raise

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.5 - 2026-06-27
+
+### Fixed
+- Removed direct `import click` that broke with Typer 0.26 (which bundles click internally). All click usage replaced with Typer equivalents.
+
 ## 0.1.4 - 2026-06-27
 
 ### Added
