@@ -46,3 +46,17 @@ def test_strips_trailing_slash():
         report_parse_error(["mytool"], "err", "http://localhost:8000/")
         url = mock_post.call_args[0][0]
         assert url == "http://localhost:8000/cli-errors"
+
+
+def test_includes_auth_header_when_api_key_set():
+    with patch("httpx.post") as mock_post:
+        report_parse_error(["mytool"], "err", "http://localhost:8000", api_key="sk-test123")
+        headers = mock_post.call_args[1]["headers"]
+        assert headers["Authorization"] == "Bearer sk-test123"
+
+
+def test_no_auth_header_when_api_key_none():
+    with patch("httpx.post") as mock_post:
+        report_parse_error(["mytool"], "err", "http://localhost:8000", api_key=None)
+        headers = mock_post.call_args[1]["headers"]
+        assert "Authorization" not in headers

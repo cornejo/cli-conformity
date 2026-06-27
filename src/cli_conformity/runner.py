@@ -77,6 +77,7 @@ def _handle_parse_error(exc: SystemExit) -> None:
             error_msg,
             server_url,
             app_config.telemetry_endpoint,
+            state.api_key,
         )
 
 
