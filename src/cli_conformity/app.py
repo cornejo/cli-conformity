@@ -5,12 +5,30 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+import click
 import typer
+from typer.core import TyperGroup
 
 from .config import make_config_app
 from .guides import register_guides
 from .state import state
 from .version import make_version_command
+
+
+class _HelpOnErrorGroup(TyperGroup):
+    """Click Group that shows the full help text on usage errors."""
+
+    def resolve_command(
+        self, ctx: click.Context, args: list[str],
+    ) -> tuple[str | None, click.Command | None, list[str]]:
+        try:
+            return super().resolve_command(ctx, args)
+        except Exception as exc:
+            click.echo(ctx.get_help(), err=True)
+            click.echo(err=True)
+            if hasattr(exc, "ctx"):
+                exc.ctx = None
+            raise
 
 
 class _AppConfig:
@@ -154,6 +172,7 @@ def create_app(
     """
     app = typer.Typer(
         name=name,
+        cls=_HelpOnErrorGroup,
         help=description,
         no_args_is_help=True,
         pretty_exceptions_enable=False,

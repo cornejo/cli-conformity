@@ -168,3 +168,18 @@ def test_version_json_mode():
     import json
     parsed = json.loads(result.output)
     assert "cli_version" in parsed
+
+
+def test_bad_command_shows_help():
+    app = create_app(name="test-tool", env_prefix="TEST", description="A test tool.")
+
+    @app.command()
+    def hello():
+        """Say hello."""
+        pass
+
+    result = invoke(app, ["badcmd"])
+    assert result.exit_code == 2
+    assert "Commands" in result.output
+    assert "hello" in result.output
+    assert "No such command" in result.output
