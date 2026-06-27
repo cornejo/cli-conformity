@@ -21,4 +21,4 @@ def handle_response(resp: httpx.Response) -> Any:
     try:
         return resp.json()
     except Exception:
-        return resp.text
+        raise CliError(f"unexpected response from server (not JSON): {resp.text[:200]}")

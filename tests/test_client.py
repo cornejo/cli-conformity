@@ -26,10 +26,11 @@ def test_success_returns_json():
     assert handle_response(resp) == {"result": "ok"}
 
 
-def test_success_returns_text_when_no_json():
+def test_success_raises_cli_error_when_no_json():
     resp = _make_response(200, text="plain text")
     resp.json.side_effect = Exception("not json")
-    assert handle_response(resp) == "plain text"
+    with pytest.raises(CliError, match="not JSON.*plain text"):
+        handle_response(resp)
 
 
 def test_400_raises_cli_error_with_detail():
