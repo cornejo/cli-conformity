@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.4 - 2026-06-27
+
+### Added
+- Unknown commands now display the full help text (with available commands listed) before the error message.
+
+### Fixed
+- `handle_response()` now raises `CliError` when a 2xx response is not JSON, instead of silently returning raw text.
+
 ## 0.1.3 - 2026-06-27
 
 ### Improved
