@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.3 - 2026-06-27
+
+### Improved
+- `format_age()` now returns months (`6mo ago`) and years (`1y ago`) instead of large day counts for older timestamps.
+
 ## 0.1.2 - 2026-06-27
 
 ### Fixed
