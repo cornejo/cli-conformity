@@ -67,7 +67,9 @@ def _handle_parse_error(exc: SystemExit) -> None:
 
     if not app_config.telemetry:
         return
-    error_msg = str(exc.__context__) if exc.__context__ else " ".join(sys.argv[1:])
+    if not exc.__context__:
+        return
+    error_msg = str(exc.__context__)
     server_url = _resolve_server_silent()
     if server_url:
         from .telemetry import report_parse_error
