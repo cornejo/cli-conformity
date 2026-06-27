@@ -116,6 +116,11 @@ def format_age(ts: str | None) -> str:
             return f"{secs // 60}m ago"
         if secs < 86400:
             return f"{secs // 3600}h ago"
-        return f"{secs // 86400}d ago"
+        days = secs // 86400
+        if days < 30:
+            return f"{days}d ago"
+        if days < 365:
+            return f"{days // 30}mo ago"
+        return f"{days // 365}y ago"
     except (ValueError, TypeError):
         return ts
