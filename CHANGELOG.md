@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2 - 2026-06-27
+
+### Fixed
+- Telemetry no longer fires on no-args help display (exit code 2 with no parse error context). Only actual argument parse failures trigger telemetry.
+
 ## 0.1.1 - 2026-06-27
 
 ### Fixed
