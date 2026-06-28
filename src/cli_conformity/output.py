@@ -77,7 +77,7 @@ def data(payload: Any) -> None:
     elif isinstance(payload, dict):
         _print_item(cast(dict[str, Any], payload))
     else:
-        console().print(payload)
+        print(payload)
 
 
 def table(
