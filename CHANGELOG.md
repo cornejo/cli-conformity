@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.6 - 2026-06-28
+
+### Fixed
+- `output.data()` no longer wraps string payloads via Rich's `console.print()`, which corrupted raw data (e.g. JSON from `exec` commands) by inserting newlines at terminal width boundaries.
+
 ## 0.1.5 - 2026-06-27
 
 ### Fixed
