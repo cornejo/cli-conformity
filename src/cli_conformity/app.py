@@ -30,6 +30,14 @@ class _HelpOnErrorGroup(TyperGroup):
             raise
 
 
+class _ConformantTyper(typer.Typer):
+    """Typer subclass that forces no_args_is_help on sub-groups."""
+
+    def add_typer(self, typer_instance: typer.Typer, **kwargs: Any) -> None:
+        kwargs.setdefault("no_args_is_help", True)
+        super().add_typer(typer_instance, **kwargs)
+
+
 class _AppConfig:
     """Internal configuration set by create_app(), read by runner."""
 
@@ -169,7 +177,7 @@ def create_app(
     Returns a typer.Typer with standard global flags, version subcommand,
     and optionally config subcommands registered.
     """
-    app = typer.Typer(
+    app = _ConformantTyper(
         name=name,
         cls=_HelpOnErrorGroup,
         help=description,
