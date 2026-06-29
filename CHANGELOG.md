@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.7 - 2026-06-29
+
+### Fixed
+- Sub-command groups (e.g. `ghidranet project`) now show help instead of a "Missing command" error when invoked without a subcommand.
+
 ## 0.1.6 - 2026-06-28
 
 ### Fixed
